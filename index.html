@@ -183,70 +183,39 @@
         </div>
     </section>
 
+    <!-- ИСТОРИЯ ОБНОВЛЕНИЙ -->
     <section id="changelog" class="max-w-6xl mx-auto px-6 py-12 relative z-10">
         <div class="mb-8">
             <h2 class="text-2xl font-bold text-white mb-2">История обновлений</h2>
-            <p class="text-sm text-gray-400">Лог последних изменений и улучшений инжектора</p>
+            <p class="text-sm text-gray-400">Список последних изменений в софте</p>
         </div>
 
-        <div id="changelog-container" class="space-y-6 border-l-2 border-white/5 pl-6 ml-2">
-            <div class="relative">
-                <span class="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
-                <span class="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">Текущая версия</span>
-                <h4 class="text-base font-bold text-white mt-0.5 mb-1">Релиз Delexium v1.0</h4>
-                <p class="text-sm text-gray-400 leading-relaxed">Полный перенос базы инжектора. Оптимизирован механизм скрытия памяти на Android arm64-v8a и улучшена отрисовка ESP оверлея.</p>
+        <div class="glass-card p-6 rounded-2xl space-y-6 max-w-2xl font-mono text-sm tracking-wide">
+            
+            <!-- Блок обновления v1.1 -->
+            <div class="border-b border-white/5 pb-4 last:border-0 last:pb-0">
+                <div class="text-emerald-400 font-bold text-base mb-1">v1.1</div>
+                <div class="text-gray-400 font-medium mb-2">Support 0.38.2</div>
+                <ul class="text-gray-300 space-y-1 pl-2">
+                    <li>• Added aimbot</li>
+                </ul>
             </div>
+
+            <!-- Блок обновления v1.0 -->
+            <div class="border-b border-white/5 pb-4 last:border-0 last:pb-0">
+                <div class="text-gray-500 font-bold text-base mb-1">v1.0</div>
+                <ul class="text-gray-400 space-y-1 pl-2">
+                    <li>• Added ESP</li>
+                    <li>• Added custom crosshair</li>
+                </ul>
+            </div>
+
         </div>
     </section>
 
     <footer class="mt-12 border-t border-white/5 py-8 text-center text-xs text-gray-600 relative z-10">
         <p>&copy; 2026 Delexium Project. Все права защищены.</p>
     </footer>
-
-    <script>
-        async function loadExternalChangelog() {
-            try {
-                const response = await fetch('changelog.txt');
-                if (response.ok) {
-                    const text = await response.text();
-                    const container = document.getElementById('changelog-container');
-                    
-                    // Если файл успешно найден, очищаем дефолтный пункт и разбиваем файл по строкам/блокам
-                    if(text.trim().length > 0) {
-                        container.innerHTML = '';
-                        
-                        // Простая логика: делим блоки обновлений по пустой строке
-                        const blocks = text.split('\n\n');
-                        
-                        blocks.forEach((block, index) => {
-                            const lines = block.trim().split('\n');
-                            if(lines.length >= 2) {
-                                const title = lines[0].replace('#', '').trim();
-                                const desc = lines.slice(1).join(' ');
-                                
-                                const isFirst = index === 0;
-                                const dotClass = isFirst ? 'bg-emerald-500 shadow-[0_0_8px_#10b981]' : 'bg-white/20';
-                                const textClass = isFirst ? 'text-emerald-400' : 'text-gray-500';
-                                const tagText = isFirst ? 'Последнее обновление' : 'Старая версия';
-
-                                container.innerHTML += `
-                                    <div class="relative">
-                                        <span class="absolute -left-[31px] top-1 w-3 h-3 rounded-full ${dotClass}"></span>
-                                        <span class="text-xs font-mono ${textClass} font-bold uppercase tracking-wider">${tagText}</span>
-                                        <h4 class="text-base font-bold text-white mt-0.5 mb-1">${title}</h4>
-                                        <p class="text-sm text-gray-400 leading-relaxed">${desc}</p>
-                                    </div>
-                                `;
-                            }
-                        });
-                    }
-                }
-            } catch (err) {
-                console.log('changelog.txt не найден, используется дефолтный лог.');
-            }
-        }
-        window.addEventListener('DOMContentLoaded', loadExternalChangelog);
-    </script>
 
 </body>
 </html>
